@@ -1,6 +1,15 @@
 <template>
   <div class="container" @click="clickHandle('test click', $event)">
 
+    <swiper class="card-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" @change="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+      <swiper-item v-for="item in swiperList" :key="item.id" :class="cardCur==index?'cur':''">
+        <view class="swiper-item">
+          <image :src="item.url" mode="aspectFill" />
+        </view>
+      </swiper-item>
+    </swiper>
+
+
     <div class="userinfo" @click="bindViewTap">
       <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
       <div class="userinfo-nickname">
@@ -8,10 +17,10 @@
       </div>
     </div>
 
-    <van-tag>标签</van-tag>
-    <van-tag type="danger">标签</van-tag>
-    <van-tag type="primary">标签</van-tag>
-    <van-tag type="success">标签</van-tag>
+    <van-tag>标签1</van-tag>
+    <van-tag type="danger">标签2</van-tag>
+    <van-tag type="primary">标签3</van-tag>
+    <van-tag type="success">标签4</van-tag>
     
 
     <div class="usermotto">
@@ -24,7 +33,7 @@
       <input type="text"  class="form-control" v-model="motto" placeholder="v-model" />
       <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
     </form>
-    <a href="/pages/counter" class="counter">去往Vuex示例页面</a>
+    <a href="/pages/counter" class="counter">去往Vuex示例页面测试相关数据</a>
     <p @click="goHome">goHome</p>
   </div>
 </template>
@@ -42,7 +51,37 @@ export default {
   data () {
     return {
       motto: 'Hello World',
-      userInfo: {}
+      userInfo: {},
+      cardCur: 0,
+      swiperList: [{
+        id: 0,
+        type: 'image',
+        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
+      }, {
+        id: 1,
+          type: 'image',
+          url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84001.jpg',
+      }, {
+        id: 2,
+        type: 'image',
+        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg'
+      }, {
+        id: 3,
+        type: 'image',
+        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
+      }, {
+        id: 4,
+        type: 'image',
+        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg'
+      }, {
+        id: 5,
+        type: 'image',
+        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big21016.jpg'
+      }, {
+        id: 6,
+        type: 'image',
+        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
+      }],
     }
   },
 
@@ -51,6 +90,9 @@ export default {
   },
 
   methods: {
+    cardSwiper(e) {
+      this.cardCur = e.mp.detail.current
+    },
     bindViewTap () {
       const url = '/packageA/logs'
       this.$router.push(url)
@@ -95,9 +137,7 @@ export default {
 
 <style scoped lang="less">
 .userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
 }
 
 .userinfo-avatar {
